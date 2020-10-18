@@ -30,7 +30,10 @@ class HistoryFragment : Fragment() {
     private val games =  arrayListOf<Game>()
     private val gameAdapter = HistoryAdapter(games)
 
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +69,7 @@ class HistoryFragment : Fragment() {
         }
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.w("something", "test")
+
         return when (item.itemId) {
             R.id.btnDeleteAllGames -> {
                 deleteAllGames()

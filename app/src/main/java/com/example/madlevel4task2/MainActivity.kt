@@ -1,6 +1,7 @@
 package com.example.madlevel4task2
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import java.io.Console
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,12 +45,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d(item.toString(), "test")
         return when (item.itemId) {
             R.id.btnGameHistory -> {
                 navController.navigate(R.id.action_gameFragment_to_historyFragment)
                 true
             }
-            R.id.home  -> {
+            //dit nummer is het id van de back icon.
+            16908332  -> {
                 navController.navigate(R.id.action_gameFragment_to_historyFragment)
                 true
             }
