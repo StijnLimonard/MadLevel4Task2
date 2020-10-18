@@ -20,6 +20,7 @@
     <string name="game_history">History</string>
     <string name="delete_all">Delete All</string>
     <string name="time">time</string>
+    <string name="vs">VS</string>
 
 
 </resources>

@@ -7,12 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
+import com.example.madlevel4task2.model.Game
+import com.example.madlevel4task2.repository.GameRepository
 import kotlinx.android.synthetic.main.fragment_game.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.*
 
 /**
  * code for the rock paper scissors game
  */
 class GameFragment : Fragment() {
+
+    private lateinit var gameRepository: GameRepository
+    private val mainScope = CoroutineScope(Dispatchers.Main)
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +35,7 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        gameRepository = GameRepository(requireContext())
 
         ivRockClick.setOnClickListener {
             playgame(1)
@@ -41,6 +52,13 @@ class GameFragment : Fragment() {
     private fun playgame(playerchoice: Int){
         val computerChoice = (1..3).random()
         val result = checkWinner(playerchoice, computerChoice)
+
+        mainScope.launch {
+            val game = Game(date = Date(), computerChoice = computerChoice.toShort(), playerMove = playerchoice.toShort(), result = result)
+            withContext(Dispatchers.IO){
+                gameRepository.insertGame(game)
+            }
+        }
         updateUI(playerchoice, computerChoice, result)
     }
 
